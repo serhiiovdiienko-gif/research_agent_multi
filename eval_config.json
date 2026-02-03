@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "tool_trajectory_avg_score": {
+      "threshold": 1.0,
+      "match_type": 2
+    },
+    "rubric_based_final_response_quality_v1": {
+      "threshold": 1.0,
+      "rubrics": [
+        {
+          "rubric_id": "confirms_file_creation",
+          "rubric_content": {
+            "text_property": "The agent's final response explicitly confirms that the report has been successfully written to a file."
+          }
+        }
+      ]
+    },
+    "hallucinations_v1": {
+      "threshold": 1.0
+    }
+  }
+}

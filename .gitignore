@@ -1,0 +1,15 @@
+# Environment variables
+# Ignore .env files as they contain sensitive credentials.
+.env
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment folders
+venv/
+.venv/
+env/
+.env/

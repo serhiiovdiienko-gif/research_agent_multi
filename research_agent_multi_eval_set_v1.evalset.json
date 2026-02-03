@@ -1,0 +1,57 @@
+{
+  "eval_set_id": "research_agent_multi_eval_set_v1",
+  "name": "Evaluation set for the multi-agent research assistant",
+  "description": "Single-turn evaluation of the controller agent for the query 'Write a report on climate change'.",
+  "eval_cases": [
+    {
+      "eval_id": "research_climate_change_case_01",
+      "session_input": {
+        "app_name": "multi_agent_researcher",
+        "user_id": "eval_user_01"
+      },
+      "conversation": [
+        {
+          "invocation_id": "inv_01",
+          "user_content": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Write a report on climate change"
+              }
+            ]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [
+              {
+                "text": "A coherent, well-structured report on climate change that explains causes, impacts, and mitigation strategies."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "wikipedia_researcher",
+                "args": {
+                  "request": "climate change"
+                }
+              },
+              {
+                "name": "arxiv_researcher",
+                "args": {
+                  "request": "climate change"
+                }
+              },
+              {
+                "name": "web_searcher",
+                "args": {
+                  "request": "climate change"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
