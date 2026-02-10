@@ -74,10 +74,10 @@ def report_writer_tool(content: str, filename: str) -> str:
         return f"Successfully appended content to {filename}."
     except Exception as e:
         return f"An error occurred while writing to file: {e}"
-
+    
 # Define a constant for the model name to be used by all agents
-#MODEL_NAME = 'gemini-1.5-flash'
-MODEL_NAME = 'gemini-2.5-flash-lite'
+MODEL_NAME = 'gemini-1.5-flash'
+#MODEL_NAME = 'gemini-2.5-flash-lite'
 
 # Define the wikipedia agent
 
@@ -85,8 +85,9 @@ wikipedia_agent = LlmAgent(
     name='wikipedia_researcher',
     model=MODEL_NAME,
     description='An expert at finding and summarizing information from Wikipedia.',
-    instruction='You are a specialized agent and tour only task is to accept a research query and use the `wikipedia_tool` to find relevant information.',
-    tools=[wikipedia_tool]
+    instruction='You are a specialized agent and your only task is to extract the research TOPIC from the request and use the `wikipedia_tool` to find relevant information.',
+    tools=[wikipedia_tool],
+    output_key="wikipedia_notes"
 )
 
 # Define the arxiv agent
@@ -113,9 +114,15 @@ google_search_agent = LlmAgent(
 
 writer_agent = LlmAgent(
     name='report_writer',
-    model=MODEL_NAME,
+    model='gemini-2.5-flash-lite',
     description='An expert at writing content to a file.',
-    instruction='You are a specialized agent whose only job is to use the report_writer_tool tool to write given text content to a specified file.',
+    instruction=(
+        "You are a specialized writing agent.\n"
+        "Write a short report based on the user's request and the research notes below.\n\n"
+        "Wikipedia notes:\n{wikipedia_notes}\n\n"
+        "Then save the final report to text file using `report_writer_tool`."
+        "The filename should be based on the research topic (e.g., black_holes_report.txt)..\n"
+    ),    
     tools=[report_writer_tool]
 )
 
